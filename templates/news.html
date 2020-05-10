@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<a href="/">Отмена</a>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.news_tittle.label }}<br>
+        {{ form.news_tittle(class="form-control") }}<br>
+        {% for error in form.news_tittle.errors %}
+            <p role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.news.label }}<br>
+        {{ form.news(class="form-control") }}<br>
+        {% for error in form.news.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

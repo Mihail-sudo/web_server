@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="/static/css/style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div>
+        <a href="/">Главная</a>
+    </div>
+<header>
+    <nav>
+        {% if current_user.is_authenticated %}
+            <a href="/account">{{ current_user.name }}</a> 
+            <a href="/logout" class="logout">Выйти</a>
+        {% else %}
+            <p>
+                <a href="/register">Зарегистрироваться</a>
+                <a href="/login">Войти</a>
+            </p>
+        {% endif %}
+    </nav>
+</header>
+<!-- Begin page content -->
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+    <a href="news">Добавить запись</a>
+{% endif %}
+{% for item in news%}
+<div class="post">
+    <h2>{{ item.news_tittle }}</h2>
+    <h3>{{item.news}}</h3>
+    <div>
+        <p><a href="{{ url_for('user_account', id=item.user_id) }}">{{ item.usered }}</a> <p>{{ item.created_date }}</p></p>
+    </div>
+    {% if current_user.is_authenticated and current_user == item.user %}
+        <div>
+            <a href="/news/{{ item.id }}" class="btn btn-warning">Изменить</a>
+            <a href="/news_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>
+        </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
