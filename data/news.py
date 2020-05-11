@@ -12,7 +12,6 @@ class News(SqlAlchemyBase, SerializerMixin):
     news = sqlalchemy.Column(sqlalchemy.String, nullable=False) 
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, 
                                      default=datetime.datetime.now)
-    usered = sqlalchemy.Column(sqlalchemy.String)
     user_id = sqlalchemy.Column(sqlalchemy.Integer, 
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')

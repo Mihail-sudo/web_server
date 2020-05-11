@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>{{ title }}</h1>
 <a href="/">Отмена</a>
-<form action="" method="post">
+<form class='box-login' action="" method="post">
+    <h1>{{ title }}</h1>
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <p>
@@ -24,7 +24,7 @@
             </p>
         {% endfor %}
     </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p><a href="{{ url_for('index') }}">{{ form.submit(type="submit", class="btn btn-primary") }}</a></p>
     {{message}}
 </form>
 {% endblock %}

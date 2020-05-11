@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="account_content">
-    <img height="200" width="150" src='{{ image }}'>
+    <img height="400" width="300" src='{{ image }}'>>
     <h2>{{ current_user.name }} {{ current_user.surname }}</h2>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form class='box-account' action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         {{ form.csrf_token }}
     <div class="account">
@@ -54,7 +54,7 @@
             {% endfor %}
         </p>
         <p>{{ message }}</p>
-    </div>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <p>{{ form.submit(type="submit", class="btn-primary") }}</p>
+    </div>    
 </div>
 {% endblock content %}

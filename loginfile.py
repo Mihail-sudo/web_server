@@ -44,3 +44,16 @@ class UpdateForm(FlaskForm):
     submit = SubmitField('Изменить')
 
     image = FileField('Новая аватарка', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+
+
+class ResetPasswordForm(FlaskForm):
+    email = StringField('Введите почту', 
+                         validators=[DataRequired(), Email(), Length(min=4, max=25)])
+    submit = SubmitField('Восстанвить пароль')
+
+
+class NewPasswordForm(FlaskForm):
+    password = PasswordField('Пароль', validators=[DataRequired(), Length(min=7)])
+    confirm_password = PasswordField('Подтвердите Пароль', 
+                                      validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Сменить пароль')

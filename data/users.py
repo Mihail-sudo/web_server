@@ -5,6 +5,7 @@ from . import db_session
 from .db_session import SqlAlchemyBase
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
@@ -26,11 +27,3 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     is_privated = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
     news = orm.relation("News", back_populates='user')
-'''
-    def validate_email(self, email):
-        session = db_session.create_session()
-        user = session.query(User).filter(User.email == email.data).first()
-        if user:
-            if user.id != self.id:
-                raise ValidationError('Мыло занято')
-'''

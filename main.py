@@ -5,12 +5,18 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import Bcrypt
 from data import db_session
 from loginfile import LoginForm, RegistrationForm, NewsForm, UpdateForm
+from flask_mail import Mail
 from data.users import User
 from data.news import News
+import api
 import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['MAIL_SERVER'] = 'smpt.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+
 bcrypt = Bcrypt(app)
 
 login_manager = LoginManager()
@@ -28,7 +34,7 @@ def save_picture(picture):
 
 def main():
     db_session.global_init("db/blogs.sqlite")
-    app.register_blueprint(news_api.blueprint)
+    app.register_blueprint(api.blueprint)
     app.run()
 
 
@@ -126,10 +132,10 @@ def edit_news(id):
         session = db_session.create_session()
         news = session.query(News).filter(News.id == id).first()
         if news:
-            form.news_tittle.data = news.news_tittle
-            form.news.data = news.news
+            news.news_tittle = form.news_tittle.data 
+            news.news = form.news.data
             session.commit()
-            return redirect('')
+            return redirect('/')
         else:
             abort(404)
     return render_template('news.html', title='Редактирование новости', form=form)
@@ -191,6 +197,12 @@ def user_account(id):
     else:
         abort(404)
     return render_template("index.html", news=news)
+
+
+@app.route('/reset_password')
+def reset_password():
+    if current_user:
+        pass
 
 
 if __name__ == '__main__':
